@@ -144,6 +144,31 @@ function projectReveals() {
   });
 }
 
+/**
+ * Grille de compétences : les cases apparaissent en vague, depuis le coin haut-gauche,
+ * en suivant la grille (GSAP stagger « grid »). Une seule fois, à l'arrivée sur la section.
+ */
+function techGridReveal() {
+  const grid = document.querySelector<HTMLElement>('[data-tech-grid]');
+  if (!grid) return;
+  const cells = grid.querySelectorAll<HTMLElement>('[data-tech]');
+  const icons = grid.querySelectorAll<SVGElement>('[data-tech] svg');
+  const tl = gsap.timeline({
+    defaults: { ease: 'out' },
+    scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
+  });
+  tl.from(cells, {
+    autoAlpha: 0,
+    y: 18,
+    duration: 0.7,
+    stagger: { each: 0.045, grid: 'auto', from: 'start' },
+  }).from(
+    icons,
+    { scale: 0.85, duration: 0.7, stagger: { each: 0.045, grid: 'auto', from: 'start' }, transformOrigin: '0% 100%' },
+    0.08,
+  );
+}
+
 function contactTitle() {
   const title = document.querySelector<HTMLElement>('#contact [data-split]');
   if (!title) return;
@@ -176,6 +201,7 @@ export function initHome() {
         revertDolly = dollyIntoScreen(stage);
       }
       projectReveals();
+      techGridReveal();
       contactTitle();
       window.__motionReady = true;
       ScrollTrigger.refresh();

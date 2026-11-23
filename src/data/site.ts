@@ -40,7 +40,27 @@ export const techs = {
 
 export type TechId = keyof typeof techs;
 
-export const techGroups: TechGroup[] = ['Langages', 'Serveur', 'Interface', 'Données', 'Outils et déploiement'];
-
-/** Pratiqué dans des cours ou des projets qui ne sont pas présentés ici. */
-export const alsoPracticed = ['C#', 'Python (OpenCV, YOLOv8)', 'Flask', 'Railway'];
+/**
+ * Section « Ce que j'utilise » : une grille d'icônes, dans l'ordre d'affichage.
+ * `icon` est le nom d'export dans le paquet simple-icons (logos libres de droits, CC0).
+ */
+export const skillIcons = [
+  { label: 'Java', icon: 'siOpenjdk' },
+  { label: 'Spring Boot', icon: 'siSpringboot' },
+  { label: 'PostgreSQL', icon: 'siPostgresql' },
+  { label: 'Vue 3', icon: 'siVuedotjs' },
+  { label: 'React', icon: 'siReact' },
+  { label: 'Angular', icon: 'siAngular' },
+  { label: 'TypeScript', icon: 'siTypescript' },
+  { label: 'JavaScript', icon: 'siJavascript' },
+  { label: 'Tailwind CSS', icon: 'siTailwindcss' },
+  { label: 'Python', icon: 'siPython' },
+  { label: 'C# / .NET', icon: 'siDotnet' },
+  { label: 'Docker', icon: 'siDocker' },
+  { label: 'Git', icon: 'siGit' },
+  { label: 'Maven', icon: 'siApachemaven' },
+  { label: 'JWT', icon: 'siJsonwebtokens' },
+  { label: 'Supabase', icon: 'siSupabase' },
+  { label: 'Firebase', icon: 'siFirebase' },
+  { label: 'Vercel', icon: 'siVercel' },
+] as const;
