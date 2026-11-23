@@ -138,13 +138,6 @@ const meta = (p: (typeof projets)[number]) =>
           </dl>
         </div>
         <div class="tl-col">
-          <h3>Expérience</h3>
-          <dl>
-            <div><dt>2023 – aujourd'hui</dt><dd><strong>Préposé à l'entretien ménager</strong><span>IPropre, Trois-Rivières. Procédures, horaires et normes de qualité, en autonomie et en équipe, en parallèle de mes études.</span></dd></div>
-            <div><dt>2016 – 2020</dt><dd><strong>Caissier</strong><span>Boutique familiale, Abidjan. Service à la clientèle, facturation, caisse journalière.</span></dd></div>
-          </dl>
-        </div>
-        <div class="tl-col">
           <h3>Langues</h3>
           <dl>
             <div><dt>Français</dt><dd><strong>Excellent</strong></dd></div>
@@ -152,6 +145,7 @@ const meta = (p: (typeof projets)[number]) =>
           </dl>
         </div>
       </div>
+      <a class="more cv-link" href={site.cv} download>Parcours complet dans mon CV (PDF)<Icon name="download" /></a>
     </div>
   </section>
 
@@ -347,7 +341,7 @@ const meta = (p: (typeof projets)[number]) =>
   /* ---------- Parcours ---------- */
   .parcours { padding-block: var(--space-xl) var(--space-2xl); }
   .timeline {
-    display: grid; grid-template-columns: 1.2fr 1.4fr 0.8fr; gap: var(--space-l);
+    display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-l);
     padding-top: var(--space-l);
   }
   .tl-col h3 { font-size: var(--step-0); font-weight: 700; padding-bottom: var(--space-2xs); border-bottom: var(--rule) solid var(--ink); }
@@ -355,6 +349,7 @@ const meta = (p: (typeof projets)[number]) =>
   dt { font-size: var(--step--1); font-weight: 500; font-variant-numeric: tabular-nums; }
   dd { display: grid; gap: 0.2rem; }
   dd span { max-width: 52ch; }
+  .cv-link { margin-top: var(--space-l); }
   @media (max-width: 899px) { .timeline { grid-template-columns: 1fr; } }
 </style>
 

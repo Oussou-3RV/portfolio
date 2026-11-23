@@ -19,7 +19,7 @@ const year = new Date().getFullYear();
   </div>
   <footer class="wrap foot">
     <p>© {year} {site.name} · {site.city}</p>
-    <p>Site construit avec Astro et GSAP.</p>
+    <a class="to-top" href="#contenu" data-to-top>Revenir en haut<Icon name="arrow-up" /></a>
   </footer>
 </section>
 
@@ -42,9 +42,48 @@ const year = new Date().getFullYear();
     border-top: var(--rule) solid var(--line);
     color: var(--fg-2); font-size: var(--step--1);
   }
+  .foot { align-items: center; }
+  .to-top {
+    display: inline-flex; align-items: center; gap: 0.5em;
+    min-height: 2.75rem; padding: 0.5rem 0.9rem;
+    border: var(--rule) solid var(--fg);
+    color: var(--fg); font-weight: 700; text-decoration: none;
+    transition: background-color 160ms ease;
+  }
+  .to-top :global(svg) { width: 1.05em; height: 1.05em; transition: transform 200ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .to-top:hover { background: color-mix(in srgb, var(--fg) 10%, transparent); }
+    .to-top:hover :global(svg) { transform: translateY(-3px); }
+  }
 </style>
 
 <script>
+  // « Revenir en haut » : défilement doux, instantané si l'utilisateur réduit les animations.
+  document.querySelectorAll<HTMLAnchorElement>('[data-to-top]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const start = window.scrollY;
+      // Le focus revient au début du contenu une fois arrivé en haut (navigation clavier).
+      const arrived = () => document.getElementById('contenu')?.focus({ preventScroll: true });
+      history.replaceState(null, '', location.pathname);
+      if (reduce) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        arrived();
+        return;
+      }
+      window.addEventListener('scrollend', arrived, { once: true });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Repli : si le défilement doux n'a pas démarré (navigateur qui le bloque), on saute en haut.
+      window.setTimeout(() => {
+        if (window.scrollY >= start - 1) {
+          window.scrollTo({ top: 0, behavior: 'auto' });
+          arrived();
+        }
+      }, 1200);
+    });
+  });
+
   document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
     const label = btn.querySelector('[data-copy-label]');
     const status = document.querySelector('[data-copy-status]');

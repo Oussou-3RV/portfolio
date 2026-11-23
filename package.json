@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "cv": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf=public/CV-Ousmane-Balde.pdf \"file://$PWD/cv/cv.html\""
   },
   "dependencies": {
     "@fontsource-variable/schibsted-grotesk": "^5.3.0",

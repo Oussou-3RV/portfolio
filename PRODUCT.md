@@ -35,8 +35,9 @@ et trouve comment le joindre.
 
 Pas « un étudiant passionné » de plus : des projets complets de bout en bout
 (API sécurisée, base de données, front, déploiement, conteneurs) décrits
-par ce qu'ils font et comment ils sont construits. Le travail à temps partiel
-pendant les études (entretien ménager, caisse) prouve la rigueur et la fiabilité.
+par ce qu'ils font et comment ils sont construits. Les emplois hors TI
+(entretien ménager, caisse) restent dans le CV, pas sur le site (décision de
+l'utilisateur, 2026-11-23 : non pertinents pour un recruteur TI).
 
 ## Operating Context
 
