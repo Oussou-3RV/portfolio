@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T03:52:25.722475+00:00",
+  "title": "Design System: Ousmane Balde, portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Bleu nuit chandail",
+        "canonical": "oklch(22.3% 0.045 268)",
+        "tonalRamp": [
+          "oklch(15% 0.022 268)",
+          "oklch(26% 0.028 268)",
+          "oklch(38% 0.035 268)",
+          "oklch(49% 0.041 268)",
+          "oklch(61% 0.041 268)",
+          "oklch(72% 0.035 268)",
+          "oklch(84% 0.028 268)",
+          "oklch(95% 0.022 268)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Ambre rayure",
+        "canonical": "oklch(71.4% 0.145 73)",
+        "tonalRamp": [
+          "oklch(15% 0.071 73)",
+          "oklch(26% 0.092 73)",
+          "oklch(38% 0.113 73)",
+          "oklch(49% 0.134 73)",
+          "oklch(61% 0.134 73)",
+          "oklch(72% 0.113 73)",
+          "oklch(84% 0.092 73)",
+          "oklch(95% 0.071 73)"
+        ]
+      },
+      "wall": {
+        "role": "neutral",
+        "displayName": "Mur taupe",
+        "canonical": "oklch(65.7% 0.050 68)",
+        "tonalRamp": [
+          "oklch(15% 0.024 68)",
+          "oklch(26% 0.032 68)",
+          "oklch(38% 0.039 68)",
+          "oklch(49% 0.046 68)",
+          "oklch(61% 0.046 68)",
+          "oklch(72% 0.039 68)",
+          "oklch(84% 0.032 68)",
+          "oklch(95% 0.024 68)"
+        ]
+      },
+      "wall-light": {
+        "role": "neutral",
+        "displayName": "Mur sous la lampe",
+        "canonical": "oklch(84.4% 0.027 77)",
+        "tonalRamp": [
+          "oklch(15% 0.013 77)",
+          "oklch(26% 0.017 77)",
+          "oklch(38% 0.021 77)",
+          "oklch(49% 0.025 77)",
+          "oklch(61% 0.025 77)",
+          "oklch(72% 0.021 77)",
+          "oklch(84% 0.017 77)",
+          "oklch(95% 0.013 77)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Encre adoucie",
+        "canonical": "oklch(33.4% 0.049 271)",
+        "tonalRamp": [
+          "oklch(15% 0.024 271)",
+          "oklch(26% 0.031 271)",
+          "oklch(38% 0.038 271)",
+          "oklch(49% 0.046 271)",
+          "oklch(61% 0.046 271)",
+          "oklch(72% 0.038 271)",
+          "oklch(84% 0.031 271)",
+          "oklch(95% 0.024 271)"
+        ]
+      },
+      "screen-raised": {
+        "role": "neutral",
+        "displayName": "Écran allumé",
+        "canonical": "oklch(23.0% 0.043 266)",
+        "tonalRamp": [
+          "oklch(15% 0.021 266)",
+          "oklch(26% 0.027 266)",
+          "oklch(38% 0.034 266)",
+          "oklch(49% 0.040 266)",
+          "oklch(61% 0.040 266)",
+          "oklch(72% 0.034 266)",
+          "oklch(84% 0.027 266)",
+          "oklch(95% 0.021 266)"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Gris bleuté",
+        "canonical": "oklch(76.6% 0.032 267)",
+        "tonalRamp": [
+          "oklch(15% 0.016 267)",
+          "oklch(26% 0.020 267)",
+          "oklch(38% 0.025 267)",
+          "oklch(49% 0.029 267)",
+          "oklch(61% 0.029 267)",
+          "oklch(72% 0.025 267)",
+          "oklch(84% 0.020 267)",
+          "oklch(95% 0.016 267)"
+        ]
+      },
+      "screen": {
+        "role": "neutral",
+        "displayName": "Écran éteint",
+        "canonical": "oklch(18.5% 0.035 265)",
+        "tonalRamp": [
+          "oklch(15% 0.017 265)",
+          "oklch(26% 0.022 265)",
+          "oklch(38% 0.027 265)",
+          "oklch(49% 0.032 265)",
+          "oklch(61% 0.032 265)",
+          "oklch(72% 0.027 265)",
+          "oklch(84% 0.022 265)",
+          "oklch(95% 0.017 265)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Ivoire froid",
+        "canonical": "oklch(94.5% 0.012 80)",
+        "tonalRamp": [
+          "oklch(15% 0.006 80)",
+          "oklch(26% 0.008 80)",
+          "oklch(38% 0.009 80)",
+          "oklch(49% 0.011 80)",
+          "oklch(61% 0.011 80)",
+          "oklch(72% 0.009 80)",
+          "oklch(84% 0.008 80)",
+          "oklch(95% 0.006 80)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Un titre par vue : accueil, fiche projet, contact, 404."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titres de section (850) et noms de projets (900)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Intertitres des fiches, adresse courriel du contact."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Accroche, résumés de projets, chapôs de section."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texte courant ; 1.65 et 68ch en lecture longue."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Méta, piles de technologies, dates, légendes. Jamais en capitales."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dot-ring",
+        "value": "0 0 0 2px #121a30",
+        "purpose": "Anneau d'encre du repère « disponible » sur le mur ; aucun autre usage."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Courbe « out » partagée CSS et GSAP pour toute entrée et tout survol."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Courbe « inOut » : tracé des liens de schéma."
+      },
+      {
+        "name": "line-reveal",
+        "value": "SplitText lines + mask, yPercent 105, 0.9-0.95s, stagger 0.08s",
+        "purpose": "Entrée des grands titres."
+      },
+      {
+        "name": "block-reveal",
+        "value": "y 18-22px, autoAlpha 0, 0.8s, stagger 0.06s",
+        "purpose": "Entrée des blocs d'une section, une fois."
+      },
+      {
+        "name": "dolly",
+        "value": "pin 120%, scrub 0.8, power2.inOut; screen fill at 0.24",
+        "purpose": "Travelling de la photo jusqu'au moniteur, accueil seulement."
+      },
+      {
+        "name": "state",
+        "value": "160ms ease (couleur), 120ms (pression), 200-220ms ease-out (flèche, soulignement)",
+        "purpose": "Transitions d'état des contrôles."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "420px"
+      },
+      {
+        "name": "s",
+        "value": "480px"
+      },
+      {
+        "name": "diagram-narrow",
+        "value": "640px"
+      },
+      {
+        "name": "nav",
+        "value": "860px"
+      },
+      {
+        "name": "layout",
+        "value": "899px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton plein (mur)",
+      "kind": "button",
+      "refersTo": "button-solid-wall",
+      "description": "Action principale sur une section mur : encre pleine, texte ivoire, angles vifs.",
+      "html": "<div class=\"ds-wall\"><a class=\"ds-btn ds-btn-solid\" href=\"#\">Voir mes projets<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a></div>",
+      "css": ".ds-wall { --ds-focus: #121a30; background: #a68c71; color: #121a30; padding: 24px; } .ds-btn { display: inline-flex; align-items: center; gap: 0.6em; min-height: 3rem; padding: 0.8rem 1.35rem; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); font-weight: 700; font-size: 1.0625rem; line-height: 1.1; text-decoration: none; border: 1.5px solid currentColor; border-radius: 0; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 120ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid var(--ds-focus); outline-offset: 3px; border-radius: 1px; } .ds-btn-solid { background: #121a30; color: #f1ece4; border-color: #121a30; } .ds-btn-solid:hover { background: color-mix(in srgb, #121a30 86%, #a68c71); }"
+    },
+    {
+      "name": "Bouton contour (mur)",
+      "kind": "button",
+      "refersTo": "button-outline-wall",
+      "description": "Action secondaire sur le mur : contour encre 1.5px, fond transparent.",
+      "html": "<div class=\"ds-wall\"><a class=\"ds-btn\" href=\"#\">Télécharger mon CV<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M12 3v12M7 10l5 5 5-5M4 20h16\"/></svg></a></div>",
+      "css": ".ds-wall { --ds-focus: #121a30; background: #a68c71; color: #121a30; padding: 24px; } .ds-btn { display: inline-flex; align-items: center; gap: 0.6em; min-height: 3rem; padding: 0.8rem 1.35rem; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); font-weight: 700; font-size: 1.0625rem; line-height: 1.1; text-decoration: none; border: 1.5px solid currentColor; border-radius: 0; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 120ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid var(--ds-focus); outline-offset: 3px; border-radius: 1px; } .ds-btn { background: transparent; color: #121a30; } .ds-btn:hover { background: color-mix(in srgb, #121a30 10%, transparent); }"
+    },
+    {
+      "name": "Boutons sur l'écran",
+      "kind": "button",
+      "refersTo": "button-solid-screen",
+      "description": "Sur l'écran, le plein s'inverse en ivoire sur bleu nuit ; le focus passe à l'ambre.",
+      "html": "<div class=\"ds-screen\"><button class=\"ds-btn ds-btn-solid\" type=\"button\">Copier l'adresse</button> <a class=\"ds-btn\" href=\"#\">GitHub</a></div>",
+      "css": ".ds-screen { --ds-focus: #d9921e; background: #0b1222; color: #f1ece4; padding: 24px; display: flex; gap: 0.75rem; flex-wrap: wrap; } .ds-btn { display: inline-flex; align-items: center; gap: 0.6em; min-height: 3rem; padding: 0.8rem 1.35rem; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); font-weight: 700; font-size: 1.0625rem; line-height: 1.1; text-decoration: none; border: 1.5px solid currentColor; border-radius: 0; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 120ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid var(--ds-focus); outline-offset: 3px; border-radius: 1px; } .ds-btn { background: transparent; color: #f1ece4; } .ds-btn:hover { background: color-mix(in srgb, #f1ece4 10%, transparent); } .ds-btn-solid { background: #f1ece4; color: #0b1222; border-color: #f1ece4; } .ds-btn-solid:hover { background: color-mix(in srgb, #f1ece4 86%, #0b1222); }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "button-small",
+      "description": "En-tête fixe de 4.5rem ; liens 500 au soulignement qui se déploie, « Me contacter » en petit bouton plein.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\">Ousmane Balde</a><nav><a class=\"ds-link\" href=\"#\">Projets</a><a class=\"ds-link\" href=\"#\">Compétences</a><a class=\"ds-link\" href=\"#\">Parcours</a><a class=\"ds-small\" href=\"#\">Me contacter</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 1.5rem; height: 4.5rem; padding-inline: 24px; background: #a68c71; color: #121a30; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); } .ds-brand { font-weight: 850; font-size: 1.3rem; letter-spacing: -0.02em; text-decoration: none; color: inherit; white-space: nowrap; } .ds-nav nav { margin-left: auto; display: flex; align-items: center; gap: 1.5rem; } .ds-link { color: inherit; font-weight: 500; text-decoration: none; padding-block: 0.4rem; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; transition: background-size 220ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-link:hover { background-size: 100% 1.5px; } .ds-link:focus-visible, .ds-small:focus-visible { outline: 2px solid #121a30; outline-offset: 3px; border-radius: 1px; } .ds-small { display: inline-flex; align-items: center; min-height: 2.6rem; padding: 0.55rem 1rem; font-weight: 700; font-size: 0.88rem; text-decoration: none; background: #121a30; color: #f1ece4; border: 1.5px solid #121a30; border-radius: 0; } .ds-small:hover { background: color-mix(in srgb, #121a30 86%, #a68c71); }"
+    },
+    {
+      "name": "Lien flèche",
+      "kind": "custom",
+      "refersTo": "link-more",
+      "description": "Action secondaire en ligne : 700, filet 1.5px, la flèche avance au survol.",
+      "html": "<div class=\"ds-screen\"><a class=\"ds-more\" href=\"#\">Lire la fiche<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a></div>",
+      "css": ".ds-screen { background: #0b1222; color: #f1ece4; padding: 24px; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); } .ds-more { display: inline-flex; align-items: center; gap: 0.45em; color: inherit; font-weight: 700; text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 0.15em; } .ds-more svg { width: 1em; height: 1em; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-more:hover svg { transform: translateX(3px); } .ds-more:focus-visible { outline: 2px solid #d9921e; outline-offset: 3px; border-radius: 1px; }"
+    },
+    {
+      "name": "Fiche projet avec pile",
+      "kind": "card",
+      "refersTo": "row-link-hover",
+      "description": "Pas de carte : titre 900, résumé, méta et pile en ligne, séparés par des filets.",
+      "html": "<article class=\"ds-project\"><h3>IntelliQCM</h3><p class=\"ds-sum\">Générateur de quiz assisté par IA.</p><p class=\"ds-meta\">Projet de cours · Déployé · 2026</p><ul class=\"ds-tags\"><li>Vue 3</li><li>Spring Boot</li><li>OpenAI</li><li>JWT</li></ul></article>",
+      "css": ".ds-project { background: #0b1222; color: #f1ece4; padding: 32px 24px; border-bottom: 1.5px solid rgb(241 236 228 / 0.22); display: grid; gap: 1rem; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); } .ds-project h3 { margin: 0; font-size: 2.6rem; font-weight: 900; letter-spacing: -0.035em; line-height: 1.02; } .ds-sum { margin: 0; font-size: 1.3rem; line-height: 1.45; max-width: 46ch; } .ds-meta { margin: 0; color: #aab3c8; font-size: 0.88rem; font-weight: 500; } .ds-tags { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; list-style: none; padding: 0; margin: 0; } .ds-tags li { color: #aab3c8; font-weight: 500; font-size: 0.88rem; letter-spacing: 0.01em; }"
+    },
+    {
+      "name": "Repère disponible",
+      "kind": "chip",
+      "refersTo": "available-dot",
+      "description": "Disque ambre cerclé d'encre sur le mur : le seul usage décoratif de l'ambre.",
+      "html": "<div class=\"ds-wall\"><p class=\"ds-avail\"><span class=\"ds-dot\" aria-hidden=\"true\"></span>Disponible pour un stage ou un emploi étudiant</p></div>",
+      "css": ".ds-wall { background: #a68c71; color: #121a30; padding: 24px; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); } .ds-avail { display: flex; align-items: center; gap: 0.6em; margin: 0; font-weight: 700; } .ds-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; background: #d9921e; box-shadow: 0 0 0 2px #121a30; flex: none; }"
+    },
+    {
+      "name": "Schéma d'architecture",
+      "kind": "custom",
+      "refersTo": "diagram-node",
+      "description": "Nœuds rectangulaires au trait 1.5px, liens orthogonaux ; un service tiers en pointillé.",
+      "html": "<figure class=\"ds-diagram\"><svg viewBox=\"0 0 430 206\" role=\"img\" aria-label=\"Exemple de schéma\"><g fill=\"none\"><path class=\"ds-edge\" d=\"M100 72 V103 H320 V134\"/></g><g transform=\"translate(0 0)\"><rect class=\"ds-node\" x=\"0.75\" y=\"0.75\" width=\"198.5\" height=\"70.5\"/><text class=\"ds-label\" x=\"14\" y=\"30\">Vue 3</text><text class=\"ds-detail\" x=\"14\" y=\"54\">Interface</text></g><g transform=\"translate(220 134)\"><rect class=\"ds-node ds-provided\" x=\"0.75\" y=\"0.75\" width=\"198.5\" height=\"70.5\"/><text class=\"ds-label\" x=\"14\" y=\"30\">OpenAI</text><text class=\"ds-detail\" x=\"14\" y=\"54\">Service tiers</text></g></svg><figcaption>Légende du schéma.</figcaption></figure>",
+      "css": ".ds-diagram { margin: 0; background: #0b1222; color: #f1ece4; padding: 24px; font-family: var(--font, \"Schibsted Grotesk Variable\", \"Helvetica Neue\", Arial, sans-serif); } .ds-diagram svg { width: 100%; height: auto; overflow: visible; } .ds-edge { stroke: #f1ece4; stroke-width: 1.5; opacity: 0.7; } .ds-node { fill: #0b1222; stroke: #f1ece4; stroke-width: 1.5; } .ds-provided { stroke-dasharray: 5 4; } .ds-label { fill: #f1ece4; font: 700 18px \"Schibsted Grotesk Variable\", Arial, sans-serif; letter-spacing: -0.01em; } .ds-detail { fill: #aab3c8; font: 400 15.5px \"Schibsted Grotesk Variable\", Arial, sans-serif; } .ds-diagram figcaption { margin-top: 1rem; padding-top: 0.75rem; border-top: 1.5px solid rgb(241 236 228 / 0.22); color: #aab3c8; font-size: 0.88rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le travelling dans l'écran",
+    "overview": "Le système part d'une photo réelle : Ousmane à son bureau. Ses couleurs sont prélevées dans cette photo (le mur taupe, le chandail bleu nuit et ses rayures ambre, l'écran éteint) et le site alterne deux matières : le **mur**, clair et chaud, où l'on parle de la personne (accueil, compétences, parcours), et l'**écran**, bleu nuit profond, où l'on montre le travail (projets, contact, en-tête des fiches). Passer de l'un à l'autre est le geste signature : la photo reste épinglée pendant que la caméra avance jusqu'au moniteur, l'écran s'allume en bleu nuit et devient la section Projets.\n\nLa densité est celle d'un document technique sérieux : une seule famille de caractères, de très gros titres en graisse 900, du texte concret, des filets fins plutôt que des boîtes. Aucune carte arrondie, aucune ombre, aucune image décorative ; la seule image est la photo, et les projets sont illustrés par des schémas d'architecture dessinés en SVG à partir de leurs données.\n\nLe mouvement est cinématographique mais rare : une entrée par section, des lignes de titre qui montent derrière un masque, des schémas qui se tracent lien par lien, une sortie franche (jamais d'ease-in). Avec `prefers-reduced-motion: reduce`, tout est visible d'emblée et rien ne bouge.",
+    "keyCharacteristics": [
+      "Deux matières qui alternent : mur (taupe `wall`, encre `ink`) et écran (`screen`, texte `paper`), commutées par `data-theme`.",
+      "Une seule famille, Schibsted Grotesk Variable, de 400 à 900.",
+      "Angles vifs partout ; filets de 1.5px (`--rule`) comme seule structure.",
+      "Un unique accent ambre, rare.",
+      "Schémas d'architecture SVG au trait comme illustration des projets.",
+      "Mouvement GSAP : SplitText par lignes masquées, courbe `out` (0.23, 1, 0.32, 1), une chorégraphie par section."
+    ],
+    "rules": [
+      {
+        "name": "La règle des deux matières",
+        "body": "Toute section déclare `data-theme=\"wall\"`, `\"wall-light\"` ou `\"screen\"` et ne colore rien en dur : elle lit `--bg`, `--fg`, `--fg-2`, `--line`, `--focus`, `--btn-bg`, `--btn-fg`. Le mur parle de la personne, l'écran montre le travail.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle de la rayure",
+        "body": "L'ambre est réservé à « disponible », au focus sur l'écran et aux retours d'état. S'il apparaît ailleurs, il cesse de signifier quelque chose.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle d'une seule voix",
+        "body": "Une famille, pas de capitales espacées, pas de surtitre au-dessus des titres. La hiérarchie se fait par la graisse (400 / 500 / 700 / 850 / 900) et la taille.",
+        "section": "typography"
+      },
+      {
+        "name": "La règle du filet",
+        "body": "On sépare par un filet de 1.5px (`--rule`) ou 1px pour les lignes internes de liste, jamais par une ombre ou une boîte. Un survol peut éclaircir un fond (`screen-raised`), il ne soulève rien.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do poser chaque nouvelle section sur `data-theme` (`wall`, `wall-light` ou `screen`) et utiliser les variables de thème plutôt que des couleurs en dur.",
+      "Do mettre le travail (projets, démonstrations, contact) sur l'écran et la personne (profil, compétences, parcours) sur le mur.",
+      "Do séparer par des filets de 1.5px (`--rule`), et 1px pour les lignes internes d'une liste.",
+      "Do garder les titres en Schibsted Grotesk 900 (850 pour les titres de section), resserrés entre -0.03em et -0.04em.",
+      "Do illustrer un projet par son schéma d'architecture plutôt que par une capture inventée.",
+      "Do utiliser la courbe `out` (0.23, 1, 0.32, 1) pour toute entrée, une seule chorégraphie par section, et tout rendre visible sous `prefers-reduced-motion: reduce`.",
+      "Do limiter les survols aux pointeurs fins (`@media (hover: hover) and (pointer: fine)`)."
+    ],
+    "donts": [
+      "Don't arrondir un bouton, une carte ou un nœud : angles vifs partout, sauf le disque « disponible ».",
+      "Don't utiliser l'ambre comme fond, couleur de titre ou décoration ; il signale la disponibilité, le focus sur l'écran et les retours d'état.",
+      "Don't ajouter d'ombre portée ni de carte encadrée pour séparer des contenus.",
+      "Don't introduire une seconde famille de caractères ni des capitales espacées.",
+      "Don't placer de surtitre (petite ligne au-dessus d'un titre) : le titre porte seul la hiérarchie.",
+      "Don't utiliser d'ease-in sur l'interface ni animer une réponse au clavier.",
+      "Don't encadrer les technologies en pastilles : une pile en ligne, en `--fg-2`."
+    ]
+  }
+}

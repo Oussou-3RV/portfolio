@@ -1,0 +1,349 @@
+---
+import { Picture } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Diagram from '../components/Diagram.astro';
+import Icon from '../components/Icon.astro';
+import Contact from '../components/Contact.astro';
+import photo from '../assets/ousmane-bureau.jpg';
+import { site, techs, techGroups, alsoPracticed, type TechId } from '../data/site';
+
+const projets = (await getCollection('projets')).sort((a, b) => a.data.order - b.data.order);
+const featured = projets.filter((p) => p.data.featured);
+const others = projets.filter((p) => !p.data.featured);
+
+// Chaque techno renvoie aux projets où elle a servi : les compteurs ne sont jamais écrits à la main.
+const usedIn = (id: TechId) => projets.filter((p) => p.data.stack.includes(id));
+const grouped = techGroups.map((group) => ({
+  group,
+  items: (Object.keys(techs) as TechId[])
+    .filter((id) => techs[id].group === group)
+    .map((id) => ({ id, label: techs[id].label, projets: usedIn(id) }))
+    .filter((t) => t.projets.length > 0)
+    .sort((a, b) => b.projets.length - a.projets.length),
+}));
+
+const meta = (p: (typeof projets)[number]) =>
+  [p.data.kind + (p.data.course ? ` · ${p.data.course}` : ''), p.data.team ? 'En équipe' : null, p.data.status]
+    .filter(Boolean)
+    .join(' · ');
+---
+
+<Base headerTheme="wall" motion>
+  <!-- Le bureau : point de départ du travelling -->
+  <section class="stage" data-theme="wall" data-header-clear data-stage aria-labelledby="hero-title">
+    <figure class="stage-photo" data-photo>
+      <Picture
+        src={photo}
+        formats={['avif', 'webp']}
+        widths={[480, 800, 1200, 1500]}
+        sizes="(min-width: 900px) 58vw, 100vw"
+        alt="Ousmane Balde à son bureau, tourné vers son écran, un café à la main."
+        loading="eager"
+        fetchpriority="high"
+        data-photo-img
+      />
+      <div class="screen-fill" data-screen-fill aria-hidden="true"></div>
+      <div class="stage-fade" data-fade aria-hidden="true"></div>
+    </figure>
+
+    <div class="stage-copy wrap" data-copy>
+      <h1 id="hero-title" data-hero-title>Je construis des applications web complètes, de l'API à l'écran.</h1>
+      <p class="lede" data-intro>
+        {site.role}, étudiant en informatique à l'UQTR. Java et Spring Boot côté serveur, Vue, React ou Angular côté interface, PostgreSQL et Docker pour le reste.
+      </p>
+      <p class="avail" data-intro><span class="dot" aria-hidden="true"></span>Disponible pour un stage ou un emploi étudiant</p>
+      <div class="cta" data-intro>
+        <a class="btn btn--solid" href="#projets">Voir mes projets<Icon name="arrow-down" /></a>
+        <a class="btn" href={site.cv} download aria-label="Télécharger mon CV (PDF)"><span class="cv-long">Télécharger mon CV</span><span class="cv-short" aria-hidden="true">Mon CV</span><Icon name="download" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dans l'écran : les projets -->
+  <section id="projets" class="projets" data-theme="screen" aria-labelledby="projets-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="projets-title">Projets</h2>
+        <p>Trois projets complets, de la base de données à l'interface, et deux projets de cours.</p>
+      </header>
+
+      <ol class="project-list">
+        {featured.map((p) => (
+          <li class="project" data-project>
+            <div class="project-text">
+              <h3 data-reveal><a href={`/projets/${p.id}/`}>{p.data.title}</a></h3>
+              <p class="project-summary" data-reveal>{p.data.summary}</p>
+              <p class="project-meta" data-reveal>{meta(p)} · {p.data.year}</p>
+              <ul class="tags" data-reveal aria-label={`Technologies de ${p.data.title}`}>
+                {p.data.stack.map((t) => <li>{techs[t].label}</li>)}
+              </ul>
+              <a class="more" href={`/projets/${p.id}/`} data-reveal aria-label={`Lire la fiche de ${p.data.title}`}>
+                Lire la fiche<Icon name="arrow-right" />
+              </a>
+            </div>
+            <div class="project-diagram">
+              <Diagram id={`d-${p.id}`} title={`Architecture de ${p.data.title}`} caption={p.data.diagram.caption} nodes={p.data.diagram.nodes} edges={p.data.diagram.edges} />
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="others">
+        <h3>Autres projets de cours</h3>
+        <ul>
+          {others.map((p) => (
+            <li>
+              <a href={`/projets/${p.id}/`}>
+                <span class="o-title">{p.data.title}</span>
+                <span class="o-meta">{p.data.course}{p.data.team ? ' · en équipe' : ''}</span>
+                <span class="o-stack">{p.data.stack.map((t) => techs[t].label).join(' · ')}</span>
+                <Icon name="arrow-right" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Retour au mur : les compétences, prouvées par les projets -->
+  <section id="competences" class="competences" data-theme="wall" aria-labelledby="competences-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="competences-title">Ce que j'utilise</h2>
+        <p>Chaque technologie renvoie aux projets où je m'en suis servi.</p>
+      </header>
+      <div class="groups">
+        {grouped.map((g) => (
+          <div class="group">
+            <h3>{g.group}</h3>
+            <ul>
+              {g.items.map((t) => (
+                <li>
+                  <span class="t-name">{t.label}</span>
+                  <span class="t-count" aria-label={`${t.projets.length} projet${t.projets.length > 1 ? 's' : ''}`}>{t.projets.length}</span>
+                  <span class="t-where">
+                    {t.projets.map((p, i) => (
+                      <>{i > 0 && ', '}<a href={`/projets/${p.id}/`}>{p.data.title}</a></>
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="also"><strong>Aussi pratiqué en cours :</strong> {alsoPracticed.join(', ')}.</p>
+    </div>
+  </section>
+
+  <section id="parcours" class="parcours" data-theme="wall" aria-labelledby="parcours-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="parcours-title">Parcours</h2>
+        <p>D'Abidjan à Trois-Rivières, en passant par le Maroc.</p>
+      </header>
+      <div class="timeline">
+        <div class="tl-col">
+          <h3>Formation</h3>
+          <dl>
+            <div><dt>Fin prévue : hiver 2027</dt><dd><strong>Baccalauréat en informatique</strong><span>Université du Québec à Trois-Rivières (UQTR)</span></dd></div>
+            <div><dt>2021 – 2023</dt><dd><strong>Licence en technologie de l'information</strong><span>École Supérieure VINCI, Maroc</span></dd></div>
+          </dl>
+        </div>
+        <div class="tl-col">
+          <h3>Expérience</h3>
+          <dl>
+            <div><dt>2023 – aujourd'hui</dt><dd><strong>Préposé à l'entretien ménager</strong><span>IPropre, Trois-Rivières. Procédures, horaires et normes de qualité, en autonomie et en équipe, en parallèle de mes études.</span></dd></div>
+            <div><dt>2016 – 2020</dt><dd><strong>Caissier</strong><span>Boutique familiale, Abidjan. Service à la clientèle, facturation, caisse journalière.</span></dd></div>
+          </dl>
+        </div>
+        <div class="tl-col">
+          <h3>Langues</h3>
+          <dl>
+            <div><dt>Français</dt><dd><strong>Excellent</strong></dd></div>
+            <div><dt>Anglais</dt><dd><strong>Intermédiaire</strong></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</Base>
+
+<style>
+  /* ---------- Le bureau ---------- */
+  .stage {
+    position: relative;
+    height: 100svh;
+    min-height: 38rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .stage-photo {
+    position: absolute; top: 0; right: 0;
+    width: 58%; height: 100%;
+    margin: 0;
+    z-index: -2;
+  }
+  .stage-photo :global(img) {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .screen-fill {
+    position: absolute;
+    background: var(--screen);
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Le dégradé vit dans la figure : il suit le zoom, le bord de la photo ne devient jamais net. */
+  .stage-fade {
+    position: absolute; inset: -1px;
+    background: linear-gradient(90deg, var(--wall) 0%, rgb(166 140 113 / 0.6) 14%, rgb(166 140 113 / 0) 34%);
+    pointer-events: none;
+  }
+  .stage-copy .lede { max-width: 34ch; }
+  .stage-copy {
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: var(--header-h);
+  }
+  .stage-copy > * { max-width: min(56vw, 52rem); }
+  h1 {
+    font-size: var(--step-4);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+  .lede { margin-top: var(--space-m); font-size: var(--step-1); line-height: 1.45; max-width: 36ch; }
+  .avail { display: flex; align-items: center; gap: 0.6em; margin-top: var(--space-m); font-weight: 700; }
+  .cta { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-l); }
+  .cv-short { display: none; }
+  @media (max-width: 480px) {
+    .cv-long { display: none; }
+    .cv-short { display: inline; }
+  }
+
+  @media (max-width: 899px) {
+    .stage { height: auto; min-height: 100svh; }
+    /* La photo est ancrée en bas et garde sa taille : le texte ne la pousse jamais sous les boutons. */
+    .stage-photo { width: 100%; top: auto; bottom: 0; height: 60svh; }
+    .stage-photo :global(img) { object-position: 58% 100%; }
+    .stage-fade {
+      background: linear-gradient(180deg, var(--wall) 0%, rgb(166 140 113 / 0.7) 14%, rgb(166 140 113 / 0) 34%);
+    }
+    .stage-copy {
+      justify-content: flex-start;
+      padding-top: calc(var(--header-h) + var(--space-m));
+      padding-bottom: 44svh;
+    }
+    .cta { margin-top: var(--space-m); }
+    /* Le bouton secondaire garde le fond du mur : la photo ne transparaît jamais derrière son texte. */
+    .cta .btn:not(.btn--solid) { background-color: var(--wall); }
+    .stage-copy > * { max-width: 34rem; }
+    h1 { font-size: clamp(2.2rem, 1.2rem + 5vw, 3.6rem); }
+    .stage-copy .lede { font-size: var(--step-0); margin-top: var(--space-s); }
+    .avail { font-size: var(--step--1); }
+  }
+
+  /* Pré-état de l'entrée, seulement quand le script d'animation va tourner */
+  :global(html.motion) [data-intro],
+  :global(html.motion) [data-hero-title] { visibility: hidden; }
+
+  /* ---------- Sections ---------- */
+  .section-head {
+    display: grid; gap: var(--space-xs);
+    padding-bottom: var(--space-l);
+    border-bottom: var(--rule) solid var(--line);
+  }
+  .section-head h2 { font-size: var(--step-3); }
+  .section-head p { color: var(--fg-2); font-size: var(--step-1); max-width: 48ch; }
+
+  .projets { padding-block: var(--space-xl) var(--space-2xl); }
+  .project-list { list-style: none; padding: 0; }
+  .project {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-l) var(--space-m);
+    padding-block: var(--space-xl);
+    border-bottom: var(--rule) solid var(--line);
+  }
+  .project-text { grid-column: 1 / span 6; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-s); }
+  .project-diagram { grid-column: 8 / span 5; align-self: center; }
+  .project-meta { color: var(--fg-2); font-size: var(--step--1); font-weight: 500; }
+  .project h3 { font-size: var(--step-3); font-weight: 900; letter-spacing: -0.035em; }
+  .project h3 a { text-decoration: none; }
+  .project-summary { font-size: var(--step-1); line-height: 1.45; max-width: 46ch; }
+  .project .tags li { color: var(--fg-2); }
+  @media (hover: hover) and (pointer: fine) {
+    .project h3 a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+  }
+
+  .others { padding-top: var(--space-xl); }
+  .others h3 { font-size: var(--step-1); margin-bottom: var(--space-s); }
+  .others ul { list-style: none; padding: 0; border-top: var(--rule) solid var(--line); }
+  .others a {
+    display: grid; grid-template-columns: 1.2fr 0.8fr 2fr auto; align-items: baseline; gap: var(--space-m);
+    padding-block: var(--space-m);
+    border-bottom: var(--rule) solid var(--line);
+    text-decoration: none;
+    transition: background-color 160ms ease;
+  }
+  .others a :global(svg) { width: 1.2rem; height: 1.2rem; align-self: center; transition: transform 200ms var(--ease-out); }
+  .o-title { font-weight: 700; font-size: var(--step-1); }
+  .o-meta, .o-stack { color: var(--fg-2); font-size: var(--step--1); }
+  @media (hover: hover) and (pointer: fine) {
+    .others a:hover { background: var(--screen-raised); }
+    .others a:hover :global(svg) { transform: translateX(4px); }
+  }
+
+  @media (max-width: 899px) {
+    .project-text, .project-diagram { grid-column: 1 / -1; }
+    .project { padding-block: var(--space-l); }
+    .others a { grid-template-columns: 1fr auto; gap: var(--space-2xs) var(--space-s); }
+    .o-meta, .o-stack { grid-column: 1; }
+    .others a :global(svg) { grid-row: 1 / span 3; grid-column: 2; }
+  }
+
+  /* ---------- Compétences ---------- */
+  .competences { padding-block: var(--space-2xl) var(--space-xl); }
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: var(--space-l) var(--space-m);
+    padding-top: var(--space-l);
+  }
+  .group h3 { font-size: var(--step-0); font-weight: 700; padding-bottom: var(--space-2xs); border-bottom: var(--rule) solid var(--ink); }
+  .group ul { list-style: none; padding: 0; }
+  .group li {
+    display: grid; grid-template-columns: 1fr auto; gap: 0.15rem var(--space-s);
+    padding-block: var(--space-xs);
+    border-bottom: 1px solid var(--line);
+  }
+  .t-name { font-weight: 700; }
+  .t-count { font-weight: 900; font-variant-numeric: tabular-nums; }
+  .t-where { grid-column: 1 / -1; font-size: var(--step--1); }
+  .t-where a { text-decoration-thickness: 1px; }
+  .also { margin-top: var(--space-l); max-width: 70ch; }
+
+  /* ---------- Parcours ---------- */
+  .parcours { padding-block: var(--space-xl) var(--space-2xl); }
+  .timeline {
+    display: grid; grid-template-columns: 1.2fr 1.4fr 0.8fr; gap: var(--space-l);
+    padding-top: var(--space-l);
+  }
+  .tl-col h3 { font-size: var(--step-0); font-weight: 700; padding-bottom: var(--space-2xs); border-bottom: var(--rule) solid var(--ink); }
+  dl div { display: grid; gap: 0.2rem; padding-block: var(--space-s); border-bottom: 1px solid var(--line); }
+  dt { font-size: var(--step--1); font-weight: 500; font-variant-numeric: tabular-nums; }
+  dd { display: grid; gap: 0.2rem; }
+  dd span { max-width: 52ch; }
+  @media (max-width: 899px) { .timeline { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  import { initHome } from '../scripts/motion';
+  initHome();
+</script>

@@ -1,0 +1,101 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Diagram from '../../components/Diagram.astro';
+import Icon from '../../components/Icon.astro';
+import Contact from '../../components/Contact.astro';
+import { techs } from '../../data/site';
+
+export async function getStaticPaths() {
+  const projets = (await getCollection('projets')).sort((a, b) => a.data.order - b.data.order);
+  return projets.map((p, i) => ({
+    params: { slug: p.id },
+    props: { projet: p, next: projets[(i + 1) % projets.length] },
+  }));
+}
+
+const { projet, next } = Astro.props;
+const { Content } = await render(projet);
+const d = projet.data;
+---
+
+<Base title={d.title} description={d.summary} headerTheme="screen">
+  <section class="intro" data-theme="screen" aria-labelledby="p-title">
+    <div class="wrap grid">
+      <div class="text">
+        <a class="back" href="/#projets"><Icon name="arrow-left" />Tous les projets</a>
+        <h1 id="p-title">{d.title}</h1>
+        <p class="summary">{d.summary}</p>
+        <dl class="facts">
+          <div><dt>Type</dt><dd>{d.kind}{d.course ? ` · ${d.course}` : ''}</dd></div>
+          <div><dt>Statut</dt><dd>{d.status}</dd></div>
+          <div><dt>Année</dt><dd>{d.year}</dd></div>
+          {d.team && <div><dt>Équipe</dt><dd>Projet d'équipe</dd></div>}
+        </dl>
+        <ul class="tags" aria-label="Technologies utilisées">
+          {d.stack.map((t) => <li>{techs[t].label}</li>)}
+        </ul>
+      </div>
+      <div class="figure">
+        <Diagram id="d-main" size="large" title={`Architecture de ${d.title}`} caption={d.diagram.caption} nodes={d.diagram.nodes} edges={d.diagram.edges} />
+      </div>
+    </div>
+  </section>
+
+  <article class="body" data-theme="wall-light">
+    <div class="wrap prose">
+      <Content />
+      <nav class="next" aria-label="Projet suivant">
+        <a href={`/projets/${next.id}/`}>
+          <span>Projet suivant</span>
+          <strong>{next.data.title}</strong>
+          <Icon name="arrow-right" />
+        </a>
+      </nav>
+    </div>
+  </article>
+
+  <Contact />
+</Base>
+
+<style>
+  .intro { padding-top: calc(var(--header-h) + var(--space-xl)); padding-bottom: var(--space-2xl); }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-l) var(--space-m); align-items: center; }
+  .text { grid-column: 1 / span 6; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-m); }
+  .figure { grid-column: 8 / span 5; }
+  .back { display: inline-flex; align-items: center; gap: 0.4em; font-weight: 500; text-decoration: none; color: var(--fg-2); }
+  .back :global(svg) { width: 1em; height: 1em; }
+  @media (hover: hover) and (pointer: fine) { .back:hover { color: var(--fg); } }
+  h1 { font-size: var(--step-4); font-weight: 900; letter-spacing: -0.04em; }
+  .summary { font-size: var(--step-1); line-height: 1.45; max-width: 44ch; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-s); width: 100%; border-top: var(--rule) solid var(--line); padding-top: var(--space-s); }
+  .facts dt { color: var(--fg-2); font-size: var(--step--1); }
+  .facts dd { font-weight: 700; }
+  .tags li { color: var(--fg-2); }
+  @media (max-width: 899px) { .text, .figure { grid-column: 1 / -1; } }
+
+  .body { padding-block: var(--space-2xl); }
+  .prose { max-width: calc(68ch + 2 * var(--gutter)); }
+  .prose :global(h2) { font-size: var(--step-2); margin-top: var(--space-xl); margin-bottom: var(--space-s); }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(p), .prose :global(li) { font-size: var(--step-0); line-height: 1.65; color: var(--fg); }
+  .prose :global(ul) { padding-left: 1.1em; display: grid; gap: var(--space-2xs); }
+  .prose :global(li::marker) { color: var(--ink); }
+  .prose :global(strong) { font-weight: 700; }
+  .prose :global(code) { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9em; background: rgb(18 26 48 / 0.08); padding: 0.1em 0.3em; }
+
+  .next { margin-top: var(--space-2xl); border-top: var(--rule) solid var(--ink); }
+  .next a {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.2rem var(--space-m);
+    padding-block: var(--space-m); text-decoration: none;
+  }
+  .next span { font-size: var(--step--1); }
+  .next strong { grid-column: 1; font-size: var(--step-3); font-weight: 900; letter-spacing: -0.035em; line-height: 1; }
+  .next :global(svg) { grid-row: 1 / span 2; grid-column: 2; width: 2rem; height: 2rem; transition: transform 200ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .next a:hover :global(svg) { transform: translateX(6px); } }
+</style>
+
+<script>
+  import { initProject } from '../../scripts/motion';
+  initProject();
+</script>

@@ -1,0 +1,60 @@
+---
+import { site } from '../data/site';
+interface Props { theme?: 'wall' | 'screen' }
+const { theme = 'wall' } = Astro.props;
+const home = Astro.url.pathname === '/';
+const href = (hash: string) => (home ? hash : `/${hash}`);
+---
+
+<header class="site-header" data-theme={theme} data-header>
+  <div class="bar wrap">
+    <a class="brand" href="/" aria-label={`${site.name}, accueil`}>{site.name}</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href={href('#projets')}>Projets</a></li>
+        <li class="hide-s"><a href={href('#competences')}>Compétences</a></li>
+        <li class="hide-s"><a href={href('#parcours')}>Parcours</a></li>
+        <li class="hide-xs"><a href={site.cv} download>CV</a></li>
+        <li><a class="btn btn--solid btn--small" href={href('#contact')}>Me contacter</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    background: transparent;
+    transition: background-color 240ms ease, color 240ms ease;
+  }
+  .site-header.is-solid { background: var(--bg); }
+  .bar {
+    display: flex; align-items: center; gap: var(--space-m);
+    height: var(--header-h);
+  }
+  .brand {
+    font-weight: 850; font-size: var(--step-1);
+    letter-spacing: -0.02em; text-decoration: none;
+    white-space: nowrap;
+  }
+  nav { margin-left: auto; }
+  ul {
+    display: flex; align-items: center; gap: clamp(0.75rem, 2vw, 2rem);
+    list-style: none; padding: 0;
+  }
+  nav a:not(.btn) {
+    font-weight: 500; text-decoration: none;
+    padding-block: 0.4rem;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat;
+    transition: background-size 220ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    nav a:not(.btn):hover { background-size: 100% 1.5px; }
+  }
+  .btn--small { min-height: 2.6rem; padding: 0.55rem 1rem; font-size: var(--step--1); }
+  @media (max-width: 860px) { .hide-s { display: none; } }
+  @media (max-width: 420px) {
+    .hide-xs { display: none; }
+    .brand { font-size: var(--step-0); }
+  }
+</style>

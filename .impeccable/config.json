@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "sf mono",
+        "createdAt": "2026-11-23T03:52:07.699Z",
+        "reason": "agent decision: system monospace stack used only for inline <code> in project prose (e.g. BehaviorSubject, docker compose up); monospace for code is sanctioned by the craft floor"
+      }
+    ]
+  }
+}

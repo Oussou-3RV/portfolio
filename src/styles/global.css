@@ -1,0 +1,180 @@
+/* ---------- Tokens ---------- */
+:root {
+  /* Couleurs prises dans la photo du bureau */
+  --wall: #a68c71;          /* le mur */
+  --wall-light: #d6cab9;    /* le mur sous la lampe, pour la lecture longue */
+  --ink: #121a30;           /* bleu nuit du chandail */
+  --screen: #0b1222;        /* l'écran éteint */
+  --screen-raised: #131c31;
+  --paper: #f1ece4;         /* texte clair sur l'écran */
+  --paper-2: #aab3c8;       /* texte secondaire sur l'écran */
+  --amber: #d9921e;         /* rayures du chandail : « disponible » et focus */
+
+  --font: "Schibsted Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+
+  --step--1: clamp(0.84rem, 0.8rem + 0.15vw, 0.92rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+  --step-2: clamp(1.5rem, 1.3rem + 0.9vw, 2.1rem);
+  --step-3: clamp(2rem, 1.6rem + 1.9vw, 3.4rem);
+  --step-4: clamp(2.5rem, 1.7rem + 4vw, 6rem);
+
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: clamp(5rem, 3.5rem + 6vw, 9rem);
+
+  --gutter: clamp(1rem, 0.5rem + 3vw, 4rem);
+  --max: 88rem;
+  --rule: 1.5px;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --header-h: 4.5rem;
+}
+
+[data-theme="wall"] {
+  --bg: var(--wall);
+  --fg: var(--ink);
+  --fg-2: var(--ink);
+  --line: rgb(18 26 48 / 0.55);
+  --focus: var(--ink);
+  --btn-bg: var(--ink);
+  --btn-fg: var(--paper);
+}
+[data-theme="wall-light"] {
+  --bg: var(--wall-light);
+  --fg: var(--ink);
+  --fg-2: #2d3550;
+  --line: rgb(18 26 48 / 0.35);
+  --focus: var(--ink);
+  --btn-bg: var(--ink);
+  --btn-fg: var(--paper);
+}
+[data-theme="screen"] {
+  --bg: var(--screen);
+  --fg: var(--paper);
+  --fg-2: var(--paper-2);
+  --line: rgb(241 236 228 / 0.22);
+  --focus: var(--amber);
+  --btn-bg: var(--paper);
+  --btn-fg: var(--screen);
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-color: var(--wall) var(--screen);
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  font-optical-sizing: auto;
+  background: var(--screen);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  caret-color: var(--amber);
+}
+
+[data-theme] { background: var(--bg); color: var(--fg); }
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1.5px; }
+
+::selection { background: var(--amber); color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--focus, var(--ink));
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 850;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute; left: var(--gutter); top: -4rem; z-index: 100;
+  background: var(--ink); color: var(--paper);
+  padding: 0.75rem 1rem; font-weight: 700;
+}
+.skip:focus { top: 0.75rem; }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  min-height: 3rem;
+  padding: 0.8rem 1.35rem;
+  font: inherit; font-weight: 700; font-size: var(--step-0);
+  line-height: 1.1;
+  text-decoration: none;
+  border: var(--rule) solid var(--fg);
+  background: transparent; color: var(--fg);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms var(--ease-out);
+}
+.btn--solid { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+.btn svg { width: 1.05em; height: 1.05em; flex: none; }
+.btn:active { transform: translateY(1px); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: color-mix(in srgb, var(--fg) 10%, transparent); }
+  .btn--solid:hover { background: color-mix(in srgb, var(--btn-bg) 86%, var(--bg)); }
+}
+
+/* Lien texte avec flèche */
+.more {
+  display: inline-flex; align-items: center; gap: 0.45em;
+  font-weight: 700; text-decoration: none;
+  border-bottom: var(--rule) solid currentColor;
+  padding-bottom: 0.15em;
+}
+.more svg { width: 1em; height: 1em; transition: transform 200ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .more:hover svg { transform: translateX(3px); }
+}
+
+/* Repère « disponible » */
+.dot {
+  display: inline-block; width: 0.6em; height: 0.6em;
+  border-radius: 50%; background: var(--amber);
+  box-shadow: 0 0 0 2px var(--ink);
+  flex: none;
+}
+[data-theme="screen"] .dot { box-shadow: none; }
+
+/* Pile de technologies */
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; list-style: none; padding: 0; }
+.tags li { font-weight: 500; font-size: var(--step--1); letter-spacing: 0.01em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

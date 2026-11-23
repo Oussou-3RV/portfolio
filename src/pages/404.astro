@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base title="Page introuvable" headerTheme="screen">
+  <section class="lost" data-theme="screen" aria-labelledby="lost-title">
+    <div class="wrap">
+      <h1 id="lost-title">Écran vide : cette page n'existe pas.</h1>
+      <p><span class="code">Erreur 404.</span> Le lien est peut-être ancien, ou l'adresse contient une faute de frappe.</p>
+      <div class="actions">
+        <a class="btn btn--solid" href="/"><Icon name="arrow-left" />Retour à l'accueil</a>
+        <a class="btn" href="/#projets">Voir les projets</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost { min-height: 100svh; display: grid; align-items: center; padding-block: calc(var(--header-h) + var(--space-l)) var(--space-xl); }
+  .code { color: var(--fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+  h1 { font-size: var(--step-4); font-weight: 900; letter-spacing: -0.04em; max-width: 14ch; margin-block: 0 var(--space-m); }
+  p { color: var(--fg-2); font-size: var(--step-1); max-width: 44ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-l); }
+</style>

@@ -1,0 +1,89 @@
+---
+/**
+ * Schéma d'architecture dessiné en SVG à partir des données du projet.
+ * Deux mises en page : large (3 colonnes) et étroite (colonnes resserrées, pour mobile),
+ * afin que le texte garde une taille lisible à l'écran.
+ */
+interface Node { id: string; label: string; detail: string; col: number; row: number; provided?: boolean }
+interface Props {
+  id: string;
+  title: string;
+  caption: string;
+  nodes: Node[];
+  edges: [string, string][];
+  size?: 'compact' | 'large';
+}
+const { id, title, caption, nodes, edges, size = 'compact' } = Astro.props;
+
+const layouts = {
+  wide: { W: 640, colX: [0, 220, 440], nodeW: 200 },
+  narrow: { W: 410, colX: [0, 105, 210], nodeW: 200 },
+};
+const nodeH = 72;
+const rowGap = 60;
+const rows = Math.max(...nodes.map((n) => n.row)) + 1;
+const rowY = (r: number) => 2 + r * (nodeH + rowGap);
+const H = rowY(rows - 1) + nodeH + 2;
+const byId = new Map(nodes.map((n) => [n.id, n]));
+
+function build(kind: keyof typeof layouts) {
+  const { W, colX, nodeW } = layouts[kind];
+  const paths = edges.map(([a, b]) => {
+    const from = byId.get(a)!;
+    const to = byId.get(b)!;
+    const x1 = colX[from.col] + nodeW / 2;
+    const y1 = rowY(from.row) + nodeH;
+    const x2 = colX[to.col] + nodeW / 2;
+    const y2 = rowY(to.row);
+    const mid = (y1 + y2) / 2;
+    return `M${x1} ${y1} V${mid} H${x2} V${y2}`;
+  });
+  return { W, colX, nodeW, paths };
+}
+const views = (['wide', 'narrow'] as const).map((k) => ({ kind: k, ...build(k) }));
+const description = nodes.map((n) => `${n.label} (${n.detail})`).join(', ');
+---
+
+<figure class={`diagram diagram--${size}`} data-diagram>
+  {views.map((v) => (
+    <svg class={`view view--${v.kind}`} viewBox={`0 0 ${v.W} ${H}`} role="img" aria-labelledby={`${id}-${v.kind}-t ${id}-${v.kind}-d`}>
+      <title id={`${id}-${v.kind}-t`}>{title}</title>
+      <desc id={`${id}-${v.kind}-d`}>{description}</desc>
+      <g class="edges" fill="none">
+        {v.paths.map((d) => <path d={d} pathLength="1" data-edge />)}
+      </g>
+      {nodes.map((n) => (
+        <g class:list={['node', { 'node--provided': n.provided }]} data-node transform={`translate(${v.colX[n.col]} ${rowY(n.row)})`}>
+          <rect x="0.75" y="0.75" width={v.nodeW - 1.5} height={nodeH - 1.5} />
+          <text x="14" y="30" class="node-label">{n.label}</text>
+          <text x="14" y="54" class="node-detail">{n.detail}</text>
+        </g>
+      ))}
+    </svg>
+  ))}
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .diagram { margin: 0; }
+  svg { width: 100%; height: auto; overflow: visible; }
+  .view--narrow { display: none; }
+  @media (max-width: 640px) {
+    .view--wide { display: none; }
+    .view--narrow { display: block; }
+  }
+  .edges path { stroke: var(--fg); stroke-width: 1.5; opacity: 0.7; }
+  .node rect { fill: var(--bg); stroke: var(--fg); stroke-width: 1.5; }
+  .node--provided rect { stroke-dasharray: 5 4; }
+  .node-label { fill: var(--fg); font: 700 18px var(--font); letter-spacing: -0.01em; }
+  .node-detail { fill: var(--fg-2); font: 400 15.5px var(--font); }
+  figcaption {
+    margin-top: var(--space-s);
+    padding-top: var(--space-xs);
+    border-top: var(--rule) solid var(--line);
+    color: var(--fg-2);
+    font-size: var(--step--1);
+    max-width: 52ch;
+  }
+  .diagram--large figcaption { font-size: var(--step-0); }
+</style>

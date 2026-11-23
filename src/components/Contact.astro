@@ -1,0 +1,63 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+---
+
+<section id="contact" class="contact" data-theme="screen" aria-labelledby="contact-title">
+  <div class="wrap">
+    <h2 id="contact-title" data-split>Un stage, un emploi étudiant, une question ? Écrivez-moi.</h2>
+    <a class="email" href={`mailto:${site.email}`}>{site.email}</a>
+    <div class="actions">
+      <button class="btn btn--solid" type="button" data-copy={site.email}>
+        <Icon name="copy" /><span data-copy-label>Copier l'adresse</span>
+      </button>
+      <a class="btn" href={site.cv} download><Icon name="download" />Télécharger mon CV</a>
+      <a class="btn" href={site.github} rel="me noopener" target="_blank"><Icon name="github" />GitHub</a>
+    </div>
+    <p class="status" role="status" aria-live="polite" data-copy-status></p>
+  </div>
+  <footer class="wrap foot">
+    <p>© {year} {site.name} · {site.city}</p>
+    <p>Site construit avec Astro et GSAP.</p>
+  </footer>
+</section>
+
+<style>
+  .contact { padding-top: var(--space-2xl); }
+  h2 { font-size: var(--step-4); max-width: 16ch; }
+  .email {
+    display: inline-block;
+    margin-top: var(--space-l);
+    font-size: var(--step-2); font-weight: 700;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-l); }
+  .status { min-height: 1.6em; margin-top: var(--space-xs); color: var(--amber); font-weight: 700; }
+  .foot {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-xs);
+    margin-top: var(--space-2xl);
+    padding-block: var(--space-m);
+    border-top: var(--rule) solid var(--line);
+    color: var(--fg-2); font-size: var(--step--1);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    const label = btn.querySelector('[data-copy-label]');
+    const status = document.querySelector('[data-copy-status]');
+    btn.addEventListener('click', async () => {
+      const value = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(value);
+        if (label) label.textContent = 'Adresse copiée';
+        if (status) status.textContent = `${value} est dans votre presse-papiers.`;
+      } catch {
+        if (status) status.textContent = `La copie a échoué. Sélectionnez l'adresse : ${value}`;
+      }
+      window.setTimeout(() => { if (label) label.textContent = "Copier l'adresse"; }, 2400);
+    });
+  });
+</script>
