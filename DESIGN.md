@@ -165,7 +165,7 @@ L'échelle est fluide, en six pas `--step--1` à `--step-4`, ratio d'environ 1.2
 - **Body** (400, `--step-0`, 1.55 ; 1.65 en lecture longue, mesure 68ch) : texte courant.
 - **Label** (500, `--step--1`, +0.01em) : méta des projets, piles de technologies, dates, légendes, pied de page. Jamais en capitales.
 
-Les intitulés de colonne (Formation, Expérience, groupes de compétences) sont en `--step-0` 700, posés sur un filet d'encre de 1.5px. Les chiffres (dates, compteurs) sont en `tabular-nums`.
+Les intitulés de colonne (Formation, Expérience) sont en `--step-0` 700, posés sur un filet d'encre de 1.5px. Les chiffres (dates) sont en `tabular-nums`. Dans « Ce que j'utilise », le nom sous chaque logo est en `--step-0` 700 (`--step--1` sous 560px).
 
 ### Named Rules
 **La règle d'une seule voix.** Une famille, pas de capitales espacées, pas de surtitre au-dessus des titres. La hiérarchie se fait par la graisse (400 / 500 / 700 / 850 / 900) et la taille.
@@ -178,7 +178,7 @@ L'accueil est une scène plein écran (`100svh`, min 38rem) : photo à droite su
 
 Rythme vertical par l'échelle `--space-*` : les sections respirent en `2xl` (5 à 9rem) d'un côté et `xl` (4rem) de l'autre ; les en-têtes de section se ferment par un filet et `l` (2.5rem) ; les éléments d'un bloc s'espacent en `s` ou `m`. L'en-tête fixe mesure `--header-h` (4.5rem) et les premières sections le compensent.
 
-Les listes de compétences et de parcours sont en grilles fluides `auto-fit, minmax(13rem, 1fr)` ou en trois colonnes proportionnées (1.2 / 1.4 / 0.8).
+« Ce que j'utilise » est une grille d'icônes tracée au filet de 1px (6 colonnes, 4 sous 899px, 3 sous 560px), cases en 4:3 (carrées sur mobile) : logo Simple Icons en encre `ink` en haut à gauche, nom en bas. Jamais les couleurs de marque des logos. Elle entre en vague depuis le coin haut-gauche (stagger GSAP `grid`, 45ms par case, une seule fois). Pas de compteurs ni de liens : le lien entre technos et projets vit dans les fiches projets. Le parcours est en trois colonnes proportionnées (1.2 / 1.4 / 0.8).
 
 ## Elevation & Depth
 

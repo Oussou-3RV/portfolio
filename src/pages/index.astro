@@ -6,22 +6,15 @@ import Diagram from '../components/Diagram.astro';
 import Icon from '../components/Icon.astro';
 import Contact from '../components/Contact.astro';
 import photo from '../assets/ousmane-bureau.jpg';
-import { site, techs, techGroups, alsoPracticed, type TechId } from '../data/site';
+import * as simpleIcons from 'simple-icons';
+import { site, techs, skillIcons } from '../data/site';
 
 const projets = (await getCollection('projets')).sort((a, b) => a.data.order - b.data.order);
 const featured = projets.filter((p) => p.data.featured);
 const others = projets.filter((p) => !p.data.featured);
 
-// Chaque techno renvoie aux projets où elle a servi : les compteurs ne sont jamais écrits à la main.
-const usedIn = (id: TechId) => projets.filter((p) => p.data.stack.includes(id));
-const grouped = techGroups.map((group) => ({
-  group,
-  items: (Object.keys(techs) as TechId[])
-    .filter((id) => techs[id].group === group)
-    .map((id) => ({ id, label: techs[id].label, projets: usedIn(id) }))
-    .filter((t) => t.projets.length > 0)
-    .sort((a, b) => b.projets.length - a.projets.length),
-}));
+// Compétences : le tracé SVG de chaque logo est lu dans simple-icons au moment du build (aucun JS envoyé).
+const skills = skillIcons.map((s) => ({ label: s.label, path: simpleIcons[s.icon].path }));
 
 const meta = (p: (typeof projets)[number]) =>
   [p.data.kind + (p.data.course ? ` · ${p.data.course}` : ''), p.data.team ? 'En équipe' : null, p.data.status]
@@ -107,34 +100,21 @@ const meta = (p: (typeof projets)[number]) =>
     </div>
   </section>
 
-  <!-- Retour au mur : les compétences, prouvées par les projets -->
+  <!-- Retour au mur : les compétences, par domaine -->
   <section id="competences" class="competences" data-theme="wall" aria-labelledby="competences-title">
     <div class="wrap">
       <header class="section-head">
         <h2 id="competences-title">Ce que j'utilise</h2>
-        <p>Chaque technologie renvoie aux projets où je m'en suis servi.</p>
+        <p>Les langages et les outils de mes projets et de mes cours.</p>
       </header>
-      <div class="groups">
-        {grouped.map((g) => (
-          <div class="group">
-            <h3>{g.group}</h3>
-            <ul>
-              {g.items.map((t) => (
-                <li>
-                  <span class="t-name">{t.label}</span>
-                  <span class="t-count" aria-label={`${t.projets.length} projet${t.projets.length > 1 ? 's' : ''}`}>{t.projets.length}</span>
-                  <span class="t-where">
-                    {t.projets.map((p, i) => (
-                      <>{i > 0 && ', '}<a href={`/projets/${p.id}/`}>{p.data.title}</a></>
-                    ))}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <ul class="tech-grid" data-tech-grid aria-label="Technologies utilisées">
+        {skills.map((t) => (
+          <li class="tech" data-tech>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={t.path} /></svg>
+            <span>{t.label}</span>
+          </li>
         ))}
-      </div>
-      <p class="also"><strong>Aussi pratiqué en cours :</strong> {alsoPracticed.join(', ')}.</p>
+      </ul>
     </div>
   </section>
 
@@ -310,24 +290,35 @@ const meta = (p: (typeof projets)[number]) =>
 
   /* ---------- Compétences ---------- */
   .competences { padding-block: var(--space-2xl) var(--space-xl); }
-  .groups {
+  /* Grille d'icônes : des cases tracées au filet, logo en encre, nom dessous. */
+  .tech-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    gap: var(--space-l) var(--space-m);
-    padding-top: var(--space-l);
+    grid-template-columns: repeat(6, 1fr);
+    list-style: none; padding: 0;
+    margin-top: var(--space-l);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
-  .group h3 { font-size: var(--step-0); font-weight: 700; padding-bottom: var(--space-2xs); border-bottom: var(--rule) solid var(--ink); }
-  .group ul { list-style: none; padding: 0; }
-  .group li {
-    display: grid; grid-template-columns: 1fr auto; gap: 0.15rem var(--space-s);
-    padding-block: var(--space-xs);
+  .tech {
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;
+    gap: var(--space-m);
+    aspect-ratio: 4 / 3;
+    padding: var(--space-m);
+    border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
+    transition: background-color 160ms ease;
   }
-  .t-name { font-weight: 700; }
-  .t-count { font-weight: 900; font-variant-numeric: tabular-nums; }
-  .t-where { grid-column: 1 / -1; font-size: var(--step--1); }
-  .t-where a { text-decoration-thickness: 1px; }
-  .also { margin-top: var(--space-l); max-width: 70ch; }
+  .tech svg { width: clamp(2rem, 1.6rem + 1.2vw, 2.75rem); height: auto; fill: var(--ink); }
+  .tech span { font-weight: 700; font-size: var(--step-0); letter-spacing: -0.01em; line-height: 1.2; }
+  @media (hover: hover) and (pointer: fine) {
+    .tech:hover { background-color: rgb(18 26 48 / 0.06); }
+  }
+  @media (max-width: 899px) { .tech-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 560px) {
+    .tech-grid { grid-template-columns: repeat(3, 1fr); }
+    .tech { aspect-ratio: 1; padding: var(--space-s); gap: var(--space-xs); }
+    .tech span { font-size: var(--step--1); }
+  }
 
   /* ---------- Parcours ---------- */
   .parcours { padding-block: var(--space-xl) var(--space-2xl); }
