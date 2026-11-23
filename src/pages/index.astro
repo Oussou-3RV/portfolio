@@ -39,6 +39,11 @@ const meta = (p: (typeof projets)[number]) =>
       <div class="screen-fill" data-screen-fill aria-hidden="true"></div>
       <div class="stage-fade" data-fade aria-hidden="true"></div>
     </figure>
+    <!-- Le message qui s'affiche quand l'écran remplit la vue. Hors de la figure : il ne subit pas le zoom. -->
+    <p class="screen-message" data-screen-message aria-hidden="true">
+      <span class="sm-title" data-sm-title>Voici ce que j'ai construit.</span>
+      <span class="sm-hint" data-sm-hint>Bonne visite.</span>
+    </p>
 
     <div class="stage-copy wrap" data-copy>
       <h1 id="hero-title" data-hero-title>Je construis des applications web complètes, de l'API à l'écran.</h1>
@@ -179,6 +184,25 @@ const meta = (p: (typeof projets)[number]) =>
     opacity: 0;
     pointer-events: none;
   }
+  /* Caché par défaut : seul le script du zoom l'affiche (rien sans JS ni en mouvement réduit). */
+  .screen-message {
+    /* Hauteur de la fenêtre, pas de la scène (plus haute sur mobile) : le message reste centré à l'écran. */
+    position: absolute; inset: 0 0 auto 0; height: 100svh; z-index: 1;
+    display: grid; place-content: center; justify-items: center; gap: var(--space-s);
+    padding-inline: var(--gutter);
+    text-align: center;
+    color: var(--paper);
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .sm-title {
+    display: block;
+    max-width: 14ch;
+    font-size: var(--step-4); font-weight: 900;
+    letter-spacing: -0.04em; line-height: 0.98;
+    text-wrap: balance;
+  }
+  .sm-hint { display: block; font-size: var(--step-1); font-weight: 500; color: var(--paper-2); }
   /* Le dégradé vit dans la figure : il suit le zoom, le bord de la photo ne devient jamais net. */
   .stage-fade {
     position: absolute; inset: -1px;
