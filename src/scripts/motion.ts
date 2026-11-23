@@ -92,7 +92,8 @@ function dollyIntoScreen(stage: HTMLElement) {
     scrollTrigger: {
       trigger: stage,
       start: 'top top',
-      end: '+=120%',
+      // 150 % : le zoom garde sa longueur d'avant, plus un temps de pause sur le message.
+      end: '+=150%',
       pin: true,
       scrub: 0.8,
       invalidateOnRefresh: true,
@@ -119,12 +120,27 @@ function dollyIntoScreen(stage: HTMLElement) {
     // L'écran « s'allume » en bleu nuit avant d'être assez grand pour qu'on lise ce qu'il affichait.
     .to(fill, { autoAlpha: 1, duration: 0.2, ease: 'none' }, 0.24);
 
+  // Le message dans l'écran allumé : le titre monte ligne par ligne derrière un masque (même geste
+  // que le titre d'accueil), puis « Bonne visite. » apparaît. Une courte pause suit avant les projets.
+  const message = stage.querySelector<HTMLElement>('[data-screen-message]');
+  const msgTitle = stage.querySelector<HTMLElement>('[data-sm-title]');
+  const msgHint = stage.querySelector<HTMLElement>('[data-sm-hint]');
+  let msgSplit: SplitText | undefined;
+  if (message && msgTitle && msgHint) {
+    msgSplit = SplitText.create(msgTitle, { type: 'lines', mask: 'lines' });
+    tl.set(message, { visibility: 'visible' }, 0.7)
+      .from(msgSplit.lines, { yPercent: 105, duration: 0.22, stagger: 0.05, ease: 'out' }, 0.7)
+      .from(msgHint, { autoAlpha: 0, y: 12, duration: 0.15, ease: 'out' }, 0.92)
+      .to({}, { duration: 0.2 }); // pause : le message reste lisible avant que la section suivante monte
+  }
+
   const onResize = () => placeFill();
   window.addEventListener('resize', onResize);
   return () => {
     window.removeEventListener('resize', onResize);
     delete stage.dataset.themeNow;
     if (fade) fade.style.opacity = '';
+    msgSplit?.revert();
   };
 }
 

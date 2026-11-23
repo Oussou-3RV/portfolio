@@ -27,7 +27,7 @@ Les compteurs de la section « Ce que j'utilise » sont calculés à partir des 
 ## Animations
 
 - **Entrée** : le titre apparaît ligne par ligne (SplitText), la photo se pose.
-- **Travelling** : la photo reste épinglée et la caméra avance jusqu'au moniteur (ScrollTrigger `pin` + `scrub`). La position de l'écran dans la photo est dans `MONITOR` (`motion.ts`) ; à changer si tu remplaces la photo.
+- **Travelling** : la photo reste épinglée et la caméra avance jusqu'au moniteur (ScrollTrigger `pin` + `scrub`). La position de l'écran dans la photo est dans `MONITOR` (`motion.ts`) ; à changer si tu remplaces la photo. Quand l'écran remplit la vue, un message s'affiche (« Voici ce que j'ai construit. Bonne visite. ») : le texte se change dans `src/pages/index.astro` (`.screen-message`).
 - **Projets** : les schémas se tracent lien par lien à l'arrivée.
 - Avec « Réduire les animations » activé dans le système, tout s'affiche sans mouvement.
 
