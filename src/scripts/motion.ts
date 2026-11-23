@@ -36,7 +36,7 @@ function heroEntrance(stage: HTMLElement) {
   const img = stage.querySelector<HTMLElement>('[data-photo-img]');
   if (!title) return;
 
-  const split = SplitText.create(title, { type: 'lines', mask: 'lines', linesClass: 'line' });
+  const split = SplitText.create(title, { type: 'lines', mask: 'lines', linesClass: 'line', reduceWhiteSpace: false });
   gsap.set([title, ...intro], { visibility: 'visible' });
 
   const tl = gsap.timeline({ defaults: { ease: 'out' } });
@@ -127,7 +127,7 @@ function dollyIntoScreen(stage: HTMLElement) {
   const msgHint = stage.querySelector<HTMLElement>('[data-sm-hint]');
   let msgSplit: SplitText | undefined;
   if (message && msgTitle && msgHint) {
-    msgSplit = SplitText.create(msgTitle, { type: 'lines', mask: 'lines' });
+    msgSplit = SplitText.create(msgTitle, { type: 'lines', mask: 'lines', reduceWhiteSpace: false });
     tl.set(message, { visibility: 'visible' }, 0.7)
       .from(msgSplit.lines, { yPercent: 105, duration: 0.22, stagger: 0.05, ease: 'out' }, 0.7)
       .from(msgHint, { autoAlpha: 0, y: 12, duration: 0.15, ease: 'out' }, 0.92)
@@ -192,6 +192,8 @@ function contactTitle() {
     type: 'lines',
     mask: 'lines',
     autoSplit: true,
+    // Garde les espaces insécables du français (« question ? ») : sinon SplitText les remplace.
+    reduceWhiteSpace: false,
     onSplit: (self) =>
       gsap.from(self.lines, {
         yPercent: 105,

@@ -1,6 +1,6 @@
 ---
 /** Petites icônes dessinées au même trait (1.75), sans bibliothèque. */
-interface Props { name: 'arrow-right' | 'arrow-down' | 'download' | 'github' | 'copy' | 'mail' | 'arrow-left' }
+interface Props { name: 'arrow-right' | 'arrow-down' | 'arrow-up' | 'download' | 'github' | 'copy' | 'mail' | 'arrow-left' }
 const { name } = Astro.props;
 ---
 
@@ -8,6 +8,7 @@ const { name } = Astro.props;
   {name === 'arrow-right' && <path d="M4 12h15M13 6l6 6-6 6" />}
   {name === 'arrow-left' && <path d="M20 12H5M11 6l-6 6 6 6" />}
   {name === 'arrow-down' && <path d="M12 4v15M6 13l6 6 6-6" />}
+  {name === 'arrow-up' && <path d="M12 20V5M6 11l6-6 6 6" />}
   {name === 'download' && <path d="M12 3v12M7 10l5 5 5-5M4 20h16" />}
   {name === 'copy' && <path d="M8 8h12v12H8zM4 16V4h12" />}
   {name === 'mail' && <path d="M3 5h18v14H3zM3 6l9 7 9-7" />}

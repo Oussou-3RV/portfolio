@@ -20,7 +20,7 @@ npm run check      # vérification TypeScript / Astro
 | ajouter une technologie | `techs` dans `src/data/site.ts`, puis l'identifiant dans `stack:` du projet |
 | changer les couleurs ou les tailles | les variables en haut de `src/styles/global.css` |
 | régler les animations | `src/scripts/motion.ts` |
-| remplacer mon CV | `public/CV-Ousmane-Balde.pdf` |
+| modifier mon CV | `cv/cv.html`, puis `npm run cv` pour régénérer `public/CV-Ousmane-Balde.pdf` (nécessite Google Chrome) |
 
 Les compteurs de la section « Ce que j'utilise » sont calculés à partir des projets : il suffit d'ajouter une techno dans `stack:` pour qu'elle apparaisse.
 
